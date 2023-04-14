@@ -34,7 +34,20 @@ class PositionEntity {
     return positionEntity;
   }
 
-  static PositionEntity? missionsTableConvertToMissionsEntity(
+  static Future<PositionEntity?> getShipById(String shipId) async {
+    AppDb appDb = AppDb.instance;
+    PositionTable? positionTable = await (appDb.select(appDb.position)
+          ..where((tbl) => tbl.shipId.equals(shipId)))
+        .getSingleOrNull();
+    PositionEntity? positionEntity;
+    if (positionTable != null) {
+      positionEntity =
+          PositionEntity.positionTableConvertTPositionEntity(positionTable);
+    }
+    return positionEntity;
+  }
+
+  static PositionEntity? positionTableConvertTPositionEntity(
       PositionTable? positionTable) {
     PositionEntity? positionEntity;
     if (positionTable != null) {

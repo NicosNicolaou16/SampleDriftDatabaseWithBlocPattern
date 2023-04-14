@@ -49,7 +49,27 @@ class MissionsEntity {
     return missionsEntityList;
   }
 
-  static MissionsEntity? missionsTableConvertToMissionsEntity(MissionsTable? missionsTable) {
+  static Future<List<MissionsEntity>> getAllMissionByShipId(
+      String shipId) async {
+    AppDb appDb = AppDb.instance;
+    List<MissionsTable>? missionsTableList = await (appDb.select(appDb.missions)
+          ..where((tbl) => tbl.shipId.equals(shipId)))
+        .get();
+    List<MissionsEntity>? missionsEntityList = [];
+    await Future.forEach(missionsTableList, (MissionsTable? missionsTable) {
+      if (missionsTable != null) {
+        MissionsEntity? missionsEntity =
+            MissionsEntity.missionsTableConvertToMissionsEntity(missionsTable);
+        if (missionsEntity != null) {
+          missionsEntityList.add(missionsEntity);
+        }
+      }
+    });
+    return missionsEntityList;
+  }
+
+  static MissionsEntity? missionsTableConvertToMissionsEntity(
+      MissionsTable? missionsTable) {
     MissionsEntity? missionsEntity;
     if (missionsTable != null) {
       missionsEntity = MissionsEntity();
