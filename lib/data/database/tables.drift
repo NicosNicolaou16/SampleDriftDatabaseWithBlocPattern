@@ -1,0 +1,32 @@
+CREATE TABLE ships (
+    id TEXT NOT NULL PRIMARY KEY,
+    ship_name TEXT NULL,
+    ship_type TEXT NULL,
+    active INT NULL,
+    imo INT NULL,
+    abs INT NULL,
+    clazz INT NULL,
+    weight_lbs INT NULL,
+    year_built INT NULL,
+    home_port TEXT NULL,
+    status TEXT NULL,
+    course_deg TEXT NULL,
+    successful_landings INT NULL,
+    attempted_landings INT NULL,
+    url TEXT NULL,
+    image TEXT NULL
+) As ShipsTable;
+
+CREATE TABLE position (
+    id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+    latitude REAL NULL,
+    longitude REAL NULL,
+    shipId TEXT NULL
+) As PositionTable
+
+CREATE TABLE missions (
+    id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NULL,
+    flight INT NULL,
+    shipId TEXT NULL
+) As PositionTable
