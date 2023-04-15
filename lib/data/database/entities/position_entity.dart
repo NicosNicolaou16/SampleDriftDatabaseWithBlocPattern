@@ -25,7 +25,7 @@ class PositionEntity {
     );
   }
 
-  static Future<PositionEntity> addPosition(
+  static Future<PositionEntity> savePosition(
       PositionEntity positionEntity, String shipId) async {
     AppDb appDb = AppDb.instance;
     await appDb

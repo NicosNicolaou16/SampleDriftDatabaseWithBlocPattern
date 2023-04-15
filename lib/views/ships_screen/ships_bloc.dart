@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sampledriftdatabasewithblocpattern/data/database/entities/ships_entity.dart';
 import 'package:sampledriftdatabasewithblocpattern/data/models/ships/ships_data_model.dart';
 import 'package:sampledriftdatabasewithblocpattern/domain/repositories/ships_repository.dart';
 import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_events/ships_events.dart';
@@ -7,8 +8,9 @@ import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_stat
 class ShipsBloc extends Bloc<ShipsEvents, ShipsStates> {
   ShipsRepository shipsRepository = ShipsRepository();
 
-  ShipsBloc(ShipsStates shipsStates): super(shipsStates) {
-    on(_onShipsFetched);
+  ShipsBloc(ShipsStates shipsStates) : super(shipsStates) {
+    on<ShipsFetchData>(_onShipsFetched);
+    on<ShipsLocalSearch>(_onShipsLocalSearch);
   }
 
   Future<void> _onShipsFetched(
@@ -26,5 +28,16 @@ class ShipsBloc extends Bloc<ShipsEvents, ShipsStates> {
         statusCode: -1,
       ));
     });
+  }
+
+  Future<void> _onShipsLocalSearch(
+    ShipsLocalSearch event,
+    Emitter<ShipsStates> emit,
+  ) async {
+    List<ShipsEntity> shipsEntityList =
+        await ShipsEntity.getShipsByName(event.searchText ?? "");
+    List<ShipsDataModel>? shipsDataModelList =
+        await ShipsDataModel.createShipsDataModel(shipsEntityList);
+    emit(ShipsLoadedState(shipsDataModelList: shipsDataModelList));
   }
 }

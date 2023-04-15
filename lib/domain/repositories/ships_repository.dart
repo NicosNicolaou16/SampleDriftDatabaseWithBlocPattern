@@ -5,8 +5,15 @@ class ShipsRepository {
   final ShipsService _shipsService = ShipsService();
 
   Future<List<ShipsEntity>> requestAndSaveDataLocal() async {
-    List<ShipsEntity>? shipsEntityList =
-        await ShipsEntity.addShips(await _shipsService.getShips());
+    List<ShipsEntity>? shipsEntityList = await _shipsService.getShips();
+    await saveShipOnLocalDatabase(shipsEntityList);
     return shipsEntityList;
+  }
+
+  Future<void> saveShipOnLocalDatabase(
+      List<ShipsEntity>? shipsEntityList) async {
+    if (shipsEntityList != null) {
+      await ShipsEntity.saveShips(shipsEntityList);
+    }
   }
 }

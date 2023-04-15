@@ -40,7 +40,7 @@ class _ShipsScreenState extends State<ShipsScreen> {
                 if (state is ShipsInitialState) {
                   context.read<ShipsBloc>().add(ShipsFetchData());
                 } else if (state is ShipsLoadedState) {
-                  return _listOfShips(state.shipsDataModelList);
+                  return _mainView(state, context);
                 } else if (state is ShipsLoadingState) {
                   return const Center(
                     child: CircularProgressIndicator(),
@@ -55,65 +55,92 @@ class _ShipsScreenState extends State<ShipsScreen> {
     );
   }
 
+  Widget _mainView(ShipsLoadedState state, BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.only(
+            top: 10,
+            left: 3,
+            right: 3,
+          ),
+          child: TextField(
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Searching...',
+            ),
+            onChanged: (value) {
+              context.read<ShipsBloc>().add(ShipsLocalSearch(value));
+            },
+          ),
+        ),
+        _listOfShips(state.shipsDataModelList),
+      ],
+    );
+  }
+
   Widget _listOfShips(List<ShipsDataModel> shipsDataModelList) {
-    return ListView.builder(
-        itemCount: shipsDataModelList.length,
-        itemBuilder: (context, index) {
-          ShipsDataModel shipsDataModel = shipsDataModelList[index];
-          return Container(
-            margin: const EdgeInsets.all(3),
-            height: 100,
-            width: double.infinity,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              color: Colors.grey,
-              elevation: 9,
-              child: ListTile(
-                leading: SizedBox(
-                  height: 100,
-                  width: 50,
-                  child: Image.network(
-                    shipsDataModel.shipsEntity.image ?? "",
+    return Expanded(
+      child: ListView.builder(
+          itemCount: shipsDataModelList.length,
+          itemBuilder: (context, index) {
+            ShipsDataModel shipsDataModel = shipsDataModelList[index];
+            return Container(
+              margin: const EdgeInsets.all(3),
+              height: 100,
+              width: double.infinity,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                color: Colors.grey,
+                elevation: 9,
+                child: ListTile(
+                  onTap: () {},
+                  leading: SizedBox(
                     height: 100,
                     width: 50,
-                    fit: BoxFit.cover,
-                    errorBuilder: (
-                      BuildContext context,
-                      Object error,
-                      StackTrace? stackTrace,
-                    ) {
-                      return const SizedBox(
-                        height: 100,
-                        width: 50,
-                        child: FittedBox(
-                          fit: BoxFit.cover,
-                          child: Icon(
-                            Icons.image,
+                    child: Image.network(
+                      shipsDataModel.shipsEntity.image ?? "",
+                      height: 100,
+                      width: 50,
+                      fit: BoxFit.cover,
+                      errorBuilder: (
+                        BuildContext context,
+                        Object error,
+                        StackTrace? stackTrace,
+                      ) {
+                        return const SizedBox(
+                          height: 100,
+                          width: 50,
+                          child: FittedBox(
+                            fit: BoxFit.cover,
+                            child: Icon(
+                              Icons.image,
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
-                ),
-                title: Text(
-                  shipsDataModel.shipsEntity.shipName ?? "",
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
+                  title: Text(
+                    shipsDataModel.shipsEntity.shipName ?? "",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                    ),
                   ),
-                ),
-                subtitle: Text(
-                  shipsDataModel.shipsEntity.shipType ?? "",
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 15,
+                  subtitle: Text(
+                    shipsDataModel.shipsEntity.shipType ?? "",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        });
+            );
+          }),
+    );
   }
 }

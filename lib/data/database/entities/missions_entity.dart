@@ -37,7 +37,7 @@ class MissionsEntity {
     );
   }
 
-  static Future<List<MissionsEntity>> addMissions(
+  static Future<List<MissionsEntity>> saveMissions(
       List<MissionsEntity> missionsEntityList, String shipId) async {
     AppDb appDb = AppDb.instance;
     await Future.forEach(missionsEntityList,

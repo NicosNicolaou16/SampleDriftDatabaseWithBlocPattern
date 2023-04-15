@@ -102,17 +102,18 @@ class ShipsEntity {
     );
   }
 
-  static Future<List<ShipsEntity>> addShips(
+  static Future<List<ShipsEntity>> saveShips(
       List<ShipsEntity> shipsEntityList) async {
     AppDb appDb = AppDb.instance;
     await Future.forEach(shipsEntityList, (ShipsEntity shipEntity) async {
       PositionEntity? positionEntity = shipEntity.positionEntity;
       if (positionEntity != null) {
-        await PositionEntity.addPosition(positionEntity, shipEntity.id ?? "-1");
+        await PositionEntity.savePosition(
+            positionEntity, shipEntity.id ?? "-1");
       }
       List<MissionsEntity>? missionsEntityList = shipEntity.missionsEntityList;
       if (missionsEntityList != null) {
-        await MissionsEntity.addMissions(
+        await MissionsEntity.saveMissions(
             missionsEntityList, shipEntity.id ?? "-1");
       }
       await appDb
@@ -153,7 +154,7 @@ class ShipsEntity {
   static Future<List<ShipsEntity>> getShipsByName(String shipName) async {
     AppDb appDb = AppDb.instance;
     List<ShipsTable>? shipsTableList = await (appDb.select(appDb.ships)
-          ..where((tbl) => tbl.shipName.equals(shipName)))
+          ..where((tbl) => tbl.shipName.like("%$shipName%")))
         .get();
     List<ShipsEntity>? shipsEntityList = [];
     await Future.forEach(shipsTableList, (ShipsTable? shipTable) {
