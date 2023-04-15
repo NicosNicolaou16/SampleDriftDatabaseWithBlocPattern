@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sampledriftdatabasewithblocpattern/domain/repositories/ships_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:sampledriftdatabasewithblocpattern/data/models/ships/ships_data_model.dart';
+import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_bloc.dart';
+import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_events/ships_events.dart';
+import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_states/ships_states.dart';
 
 class ShipsScreen extends StatefulWidget {
   const ShipsScreen({Key? key}) : super(key: key);
@@ -9,30 +14,106 @@ class ShipsScreen extends StatefulWidget {
 }
 
 class _ShipsScreenState extends State<ShipsScreen> {
-  @override
-  void initState() {
-    _init();
-    super.initState();
-  }
-
-  _init() async {
-    await ShipsRepository().requestAndSaveDataLocal().then((value) async {
-      value.forEach((element) {
-        print(element.id);
-      });
-    });
+  _showErrorAlert(ShipsErrorState errorState) async {
+    await Alert(
+            context: context,
+            type: AlertType.error,
+            title: "Error",
+            desc: errorState.error ?? "")
+        .show();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Container(
-          child: Text(
-            "Flutter",
+    return SafeArea(
+      child: Scaffold(
+        body: BlocProvider(
+          create: (_) => ShipsBloc(ShipsInitialState()),
+          child: BlocListener<ShipsBloc, ShipsStates>(
+            listener: (context, state) {
+              if (state is ShipsErrorState) {
+                _showErrorAlert(state);
+              }
+            },
+            child: BlocBuilder<ShipsBloc, ShipsStates>(
+              builder: (context, state) {
+                if (state is ShipsInitialState) {
+                  context.read<ShipsBloc>().add(ShipsFetchData());
+                } else if (state is ShipsLoadedState) {
+                  return _listOfShips(state.shipsDataModelList);
+                } else if (state is ShipsLoadingState) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return Container();
+              },
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Widget _listOfShips(List<ShipsDataModel> shipsDataModelList) {
+    return ListView.builder(
+        itemCount: shipsDataModelList.length,
+        itemBuilder: (context, index) {
+          ShipsDataModel shipsDataModel = shipsDataModelList[index];
+          return Container(
+            margin: const EdgeInsets.all(3),
+            height: 100,
+            width: double.infinity,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              color: Colors.grey,
+              elevation: 9,
+              child: ListTile(
+                leading: SizedBox(
+                  height: 100,
+                  width: 50,
+                  child: Image.network(
+                    shipsDataModel.shipsEntity.image ?? "",
+                    height: 100,
+                    width: 50,
+                    fit: BoxFit.cover,
+                    errorBuilder: (
+                      BuildContext context,
+                      Object error,
+                      StackTrace? stackTrace,
+                    ) {
+                      return const SizedBox(
+                        height: 100,
+                        width: 50,
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: Icon(
+                            Icons.image,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                title: Text(
+                  shipsDataModel.shipsEntity.shipName ?? "",
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 17,
+                  ),
+                ),
+                subtitle: Text(
+                  shipsDataModel.shipsEntity.shipType ?? "",
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
   }
 }

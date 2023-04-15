@@ -150,6 +150,24 @@ class ShipsEntity {
     return shipsEntity;
   }
 
+  static Future<List<ShipsEntity>> getShipsByName(String shipName) async {
+    AppDb appDb = AppDb.instance;
+    List<ShipsTable>? shipsTableList = await (appDb.select(appDb.ships)
+          ..where((tbl) => tbl.shipName.equals(shipName)))
+        .get();
+    List<ShipsEntity>? shipsEntityList = [];
+    await Future.forEach(shipsTableList, (ShipsTable? shipTable) {
+      if (shipTable != null) {
+        ShipsEntity? shipsEntity =
+            ShipsEntity.shipsTableConvertToShipsEntity(shipTable);
+        if (shipsEntity != null) {
+          shipsEntityList.add(shipsEntity);
+        }
+      }
+    });
+    return shipsEntityList;
+  }
+
   static ShipsEntity? shipsTableConvertToShipsEntity(ShipsTable? shipsTable) {
     ShipsEntity? shipsEntity;
     if (shipsTable != null) {
