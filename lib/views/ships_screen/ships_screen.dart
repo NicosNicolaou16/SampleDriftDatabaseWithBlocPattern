@@ -21,6 +21,16 @@ class _ShipsScreenState extends State<ShipsScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          elevation: 0,
+          title: const Text(
+            "List",
+            style: TextStyle(
+              fontSize: 21,
+            ),
+          ),
+        ),
         body: BlocProvider(
           create: (_) => ShipsBloc(ShipsInitialState()),
           child: BlocListener<ShipsBloc, ShipsStates>(
