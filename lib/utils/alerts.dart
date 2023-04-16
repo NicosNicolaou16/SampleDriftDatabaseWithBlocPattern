@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-class Alerts {
-  static showErrorAlert(
+class AlertsDialog {
+  static showAlertDialog(
     String errorMessage,
     BuildContext context,
   ) async {

@@ -26,7 +26,7 @@ class _ShipsScreenState extends State<ShipsScreen> {
           child: BlocListener<ShipsBloc, ShipsStates>(
             listener: (context, state) {
               if (state is ShipsErrorState) {
-                Alerts.showErrorAlert(state.error ?? "", context);
+                AlertsDialog.showAlertDialog(state.error ?? "", context);
               }
             },
             child: BlocBuilder<ShipsBloc, ShipsStates>(
