@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sampledriftdatabasewithblocpattern/data/models/ship_details/ship_details_data_model.dart';
-import 'package:sampledriftdatabasewithblocpattern/utils/alerts_dialog.dart';
+import 'package:sampledriftdatabasewithblocpattern/utils/alerts_dialog/alerts_dialog.dart';
 import 'package:sampledriftdatabasewithblocpattern/views/ship_details_screen/ship_details_bloc.dart';
 import 'package:sampledriftdatabasewithblocpattern/views/ship_details_screen/ship_details_events/ship_details_events.dart';
 import 'package:sampledriftdatabasewithblocpattern/views/ship_details_screen/ship_details_states/ship_details_states.dart';
@@ -32,28 +32,26 @@ class _ShipDetailsScreenState extends State<ShipDetailsScreen> {
         ),
         body: BlocProvider(
           create: (_) => ShipDetailsBloc(ShipDetailsInitialState()),
-          child: BlocListener<ShipDetailsBloc, ShipDetailsStates>(
+          child: BlocConsumer<ShipDetailsBloc, ShipDetailsStates>(
             listener: (context, state) {
               if (state is ShipDetailsErrorState) {
                 AlertsDialog.showAlertDialog(state.error ?? "", context);
               }
             },
-            child: BlocBuilder<ShipDetailsBloc, ShipDetailsStates>(
-              builder: (context, state) {
-                if (state is ShipDetailsInitialState) {
-                  context
-                      .read<ShipDetailsBloc>()
-                      .add(ShipDetailsLocalQuery(widget.shipId));
-                } else if (state is ShipDetailsLoadedState) {
-                  return _mainView(state, context);
-                } else if (state is ShipDetailsLoadingState) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return Container();
-              },
-            ),
+            builder: (context, state) {
+              if (state is ShipDetailsInitialState) {
+                context
+                    .read<ShipDetailsBloc>()
+                    .add(ShipDetailsLocalQuery(widget.shipId));
+              } else if (state is ShipDetailsLoadedState) {
+                return _mainView(state, context);
+              } else if (state is ShipDetailsLoadingState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Container();
+            },
           ),
         ),
       ),
@@ -82,10 +80,10 @@ class _ShipDetailsScreenState extends State<ShipDetailsScreen> {
       width: 50,
       fit: BoxFit.cover,
       errorBuilder: (
-          BuildContext context,
-          Object error,
-          StackTrace? stackTrace,
-          ) {
+        BuildContext context,
+        Object error,
+        StackTrace? stackTrace,
+      ) {
         return const SizedBox(
           height: 300,
           width: 50,

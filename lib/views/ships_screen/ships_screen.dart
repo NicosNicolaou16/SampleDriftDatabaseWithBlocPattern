@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:sampledriftdatabasewithblocpattern/data/models/ships/ships_data_model.dart';
-import 'package:sampledriftdatabasewithblocpattern/utils/alerts_dialog.dart';
+import 'package:sampledriftdatabasewithblocpattern/utils/alerts_dialog/alerts_dialog.dart';
 import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_bloc.dart';
 import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_events/ships_events.dart';
 import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_states/ships_states.dart';
@@ -25,7 +24,7 @@ class _ShipsScreenState extends State<ShipsScreen> {
           centerTitle: true,
           elevation: 0,
           title: const Text(
-            "List",
+            "Ships List",
             style: TextStyle(
               fontSize: 21,
             ),
@@ -33,26 +32,24 @@ class _ShipsScreenState extends State<ShipsScreen> {
         ),
         body: BlocProvider(
           create: (_) => ShipsBloc(ShipsInitialState()),
-          child: BlocListener<ShipsBloc, ShipsStates>(
+          child: BlocConsumer<ShipsBloc, ShipsStates>(
             listener: (context, state) {
               if (state is ShipsErrorState) {
                 AlertsDialog.showAlertDialog(state.error ?? "", context);
               }
             },
-            child: BlocBuilder<ShipsBloc, ShipsStates>(
-              builder: (context, state) {
-                if (state is ShipsInitialState) {
-                  context.read<ShipsBloc>().add(ShipsFetchData());
-                } else if (state is ShipsLoadedState) {
-                  return _mainView(state, context);
-                } else if (state is ShipsLoadingState) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return Container();
-              },
-            ),
+            builder: (context, state) {
+              if (state is ShipsInitialState) {
+                context.read<ShipsBloc>().add(ShipsFetchData());
+              } else if (state is ShipsLoadedState) {
+                return _mainView(state, context);
+              } else if (state is ShipsLoadingState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Container();
+            },
           ),
         ),
       ),
@@ -95,65 +92,88 @@ class _ShipsScreenState extends State<ShipsScreen> {
   }
 
   Widget _cardView(ShipsDataModel shipsDataModel) {
-    return Container(
-      margin: const EdgeInsets.all(3),
-      height: 100,
-      width: double.infinity,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        color: Colors.grey,
-        elevation: 9,
-        child: ListTile(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ShipDetailsScreen(
-                        shipId: shipsDataModel.shipsEntity.id ?? "-1",
-                      )),
-            );
-          },
-          leading: SizedBox(
-            height: 100,
-            width: 50,
-            child: Image.network(
-              shipsDataModel.shipsEntity.image ?? "",
-              height: 100,
-              width: 50,
-              fit: BoxFit.cover,
-              errorBuilder: (
-                BuildContext context,
-                Object error,
-                StackTrace? stackTrace,
-              ) {
-                return const SizedBox(
-                  height: 100,
-                  width: 50,
-                  child: FittedBox(
-                    fit: BoxFit.cover,
-                    child: Icon(
-                      Icons.image,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ShipDetailsScreen(
+                    shipId: shipsDataModel.shipsEntity.id ?? "-1",
+                  )),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.all(3),
+        height: 150,
+        width: double.infinity,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          color: Colors.grey,
+          elevation: 9,
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  bottomLeft: Radius.circular(15),
+                ),
+                child: Image.network(
+                  shipsDataModel.shipsEntity.image ?? "",
+                  height: 150,
+                  width: 150,
+                  fit: BoxFit.cover,
+                  errorBuilder: (
+                    BuildContext context,
+                    Object error,
+                    StackTrace? stackTrace,
+                  ) {
+                    return const SizedBox(
+                      height: 150,
+                      width: 150,
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Icon(
+                          Icons.image,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 200,
+                    child: Text(
+                      shipsDataModel.shipsEntity.shipName ?? "",
+                      maxLines: 2,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                      ),
                     ),
                   ),
-                );
-              },
-            ),
-          ),
-          title: Text(
-            shipsDataModel.shipsEntity.shipName ?? "",
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 17,
-            ),
-          ),
-          subtitle: Text(
-            shipsDataModel.shipsEntity.shipType ?? "",
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 15,
-            ),
+                  SizedBox(
+                    width: 200,
+                    child: Text(
+                      shipsDataModel.shipsEntity.shipType ?? "",
+                      maxLines: 2,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
