@@ -9,7 +9,7 @@ Drift Database (SQL) <br />
 Flutter SDK version: 3.7.12 <br />
 Dart Version: 2.19.6 <br />
 
-# References/Tutorials
+# References/Tutorials Follow
 https://bloclibrary.dev/#/gettingstarted <br />
 https://bloclibrary.dev/#/fluttertimertutorial?id=flutter-timer-tutorial <br />
 https://ppantaleon.medium.com/flutter-blocbuilder-vs-blocconsumer-vs-bloclistener-a4a3ce7bfa9a <br />
