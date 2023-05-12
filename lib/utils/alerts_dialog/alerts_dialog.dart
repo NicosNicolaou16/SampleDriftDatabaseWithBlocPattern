@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AlertsDialog {
   static showAlertDialog(
     String errorMessage,
     BuildContext context,
   ) async {
-    await Alert(
-            context: context,
-            type: AlertType.error,
-            title: "Error",
-            desc: errorMessage ?? "")
-        .show();
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: Text(errorMessage ?? ""),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
