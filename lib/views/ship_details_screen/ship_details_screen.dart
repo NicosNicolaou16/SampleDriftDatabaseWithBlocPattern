@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sampledriftdatabasewithblocpattern/data/models/ship_details/ship_details_data_model.dart';
@@ -74,27 +75,20 @@ class _ShipDetailsScreenState extends State<ShipDetailsScreen> {
   }
 
   Widget _imageView(ShipDetailsDataModel shipDetailsDataModel) {
-    return Image.network(
-      shipDetailsDataModel.shipsEntity.image ?? "",
+    return CachedNetworkImage(
+      imageUrl: shipDetailsDataModel.shipsEntity.image ?? "",
+      imageBuilder: (context, imageProvider) => Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: imageProvider,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+      placeholder: (context, url) => const CircularProgressIndicator(),
+      errorWidget: (context, url, error) => const Icon(Icons.image),
       height: 300,
       width: 50,
-      fit: BoxFit.cover,
-      errorBuilder: (
-        BuildContext context,
-        Object error,
-        StackTrace? stackTrace,
-      ) {
-        return const SizedBox(
-          height: 300,
-          width: 50,
-          child: FittedBox(
-            fit: BoxFit.cover,
-            child: Icon(
-              Icons.image,
-            ),
-          ),
-        );
-      },
     );
   }
 

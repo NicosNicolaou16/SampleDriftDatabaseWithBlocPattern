@@ -10,17 +10,16 @@ class ShipsBloc extends Bloc<ShipsEvents, ShipsStates> {
 
   ShipsBloc(ShipsStates shipsStates) : super(shipsStates) {
     on<ShipsFetchData>(_onShipsFetched);
+    on<ShipsFromLocalDatabase>(_shipsFromLocalDatabase);
     on<ShipsLocalSearch>(_onShipsLocalSearch);
   }
 
-  Future<void> _onShipsFetched(
-    ShipsFetchData event,
-    Emitter<ShipsStates> emit,
-  ) async {
+  Future<void> _onShipsFetched(ShipsFetchData event,
+      Emitter<ShipsStates> emit,) async {
     emit(ShipsLoadingState());
     await shipsRepository.requestAndSaveDataLocal().then((value) async {
       List<ShipsDataModel> shipsDataModelList =
-          await ShipsDataModel.createShipsDataModel(value);
+      await ShipsDataModel.createShipsDataModel(value);
       emit(ShipsLoadedState(shipsDataModelList: shipsDataModelList));
     }).catchError((err) async {
       emit(const ShipsErrorState(
@@ -30,14 +29,22 @@ class ShipsBloc extends Bloc<ShipsEvents, ShipsStates> {
     });
   }
 
-  Future<void> _onShipsLocalSearch(
-    ShipsLocalSearch event,
-    Emitter<ShipsStates> emit,
-  ) async {
+  Future<void> _shipsFromLocalDatabase(ShipsFromLocalDatabase event,
+      Emitter<ShipsStates> emit,) async {
+    emit(ShipsLoadingState());
     List<ShipsEntity> shipsEntityList =
-        await ShipsEntity.getShipsByName(event.searchText ?? "");
+    await ShipsEntity.getAllShips();
+    List<ShipsDataModel> shipsDataModelList = await ShipsDataModel
+        .createShipsDataModel(shipsEntityList);
+    emit(ShipsLoadedState(shipsDataModelList: shipsDataModelList));
+  }
+
+  Future<void> _onShipsLocalSearch(ShipsLocalSearch event,
+      Emitter<ShipsStates> emit,) async {
+    List<ShipsEntity> shipsEntityList =
+    await ShipsEntity.getShipsByName(event.searchText ?? "");
     List<ShipsDataModel>? shipsDataModelList =
-        await ShipsDataModel.createShipsDataModel(shipsEntityList);
+    await ShipsDataModel.createShipsDataModel(shipsEntityList);
     emit(ShipsLoadedState(shipsDataModelList: shipsDataModelList));
   }
 }

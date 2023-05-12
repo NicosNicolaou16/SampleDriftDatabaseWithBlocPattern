@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sampledriftdatabasewithblocpattern/data/models/ships/ships_data_model.dart';
@@ -41,6 +42,7 @@ class _ShipsScreenState extends State<ShipsScreen> {
             builder: (context, state) {
               if (state is ShipsInitialState) {
                 context.read<ShipsBloc>().add(ShipsFetchData());
+                context.read<ShipsBloc>().add(ShipsFromLocalDatabase());
               } else if (state is ShipsLoadedState) {
                 return _mainView(state, context);
               } else if (state is ShipsLoadingState) {
@@ -119,27 +121,21 @@ class _ShipsScreenState extends State<ShipsScreen> {
                   topLeft: Radius.circular(15),
                   bottomLeft: Radius.circular(15),
                 ),
-                child: Image.network(
-                  shipsDataModel.shipsEntity.image ?? "",
+                child: CachedNetworkImage(
+                  imageUrl: shipsDataModel.shipsEntity.image ?? "",
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.image),
                   height: 150,
                   width: 150,
-                  fit: BoxFit.cover,
-                  errorBuilder: (
-                    BuildContext context,
-                    Object error,
-                    StackTrace? stackTrace,
-                  ) {
-                    return const SizedBox(
-                      height: 150,
-                      width: 150,
-                      child: FittedBox(
-                        fit: BoxFit.cover,
-                        child: Icon(
-                          Icons.image,
-                        ),
-                      ),
-                    );
-                  },
                 ),
               ),
               const SizedBox(
