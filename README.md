@@ -7,7 +7,7 @@ Dio (Network Manager) <br />
 Drift Database (SQL) <br />
 
 Flutter SDK version: 3.13.4 <br />
-Dart Version: 3.1.0 <br />
+Dart Version: 3.1.2 <br />
 
 # References/Tutorials Follow
 https://bloclibrary.dev/#/gettingstarted <br />
