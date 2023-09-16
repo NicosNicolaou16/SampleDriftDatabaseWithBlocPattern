@@ -6,7 +6,7 @@ Bloc Architecture Pattern with Repository and Service <br />
 Dio (Network Manager) <br />
 Drift Database (SQL) <br />
 
-Flutter SDK version: 3.13.0 <br />
+Flutter SDK version: 3.13.4 <br />
 Dart Version: 3.1.0 <br />
 
 # References/Tutorials Follow
