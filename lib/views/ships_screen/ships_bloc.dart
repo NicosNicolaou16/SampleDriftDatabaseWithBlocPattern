@@ -6,7 +6,7 @@ import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_even
 import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_states/ships_states.dart';
 
 class ShipsBloc extends Bloc<ShipsEvents, ShipsStates> {
-  ShipsRepository shipsRepository = ShipsRepository();
+  final ShipsRepository _shipsRepository = ShipsRepository();
 
   ShipsBloc(ShipsStates shipsStates) : super(shipsStates) {
     on<ShipsFetchData>(_onShipsFetched);
@@ -17,7 +17,7 @@ class ShipsBloc extends Bloc<ShipsEvents, ShipsStates> {
   Future<void> _onShipsFetched(ShipsFetchData event,
       Emitter<ShipsStates> emit,) async {
     emit(ShipsLoadingState());
-    await shipsRepository.requestAndSaveDataLocal().then((value) async {
+    await _shipsRepository.requestAndSaveDataLocal().then((value) async {
       List<ShipsDataModel> shipsDataModelList =
       await ShipsDataModel.createShipsDataModel(value);
       emit(ShipsLoadedState(shipsDataModelList: shipsDataModelList));
