@@ -1,11 +1,7 @@
-import 'package:equatable/equatable.dart';
 import 'package:sampledriftdatabasewithblocpattern/data/models/ship_details/ship_details_data_model.dart';
 
-abstract class ShipDetailsStates extends Equatable {
+abstract class ShipDetailsStates {
   const ShipDetailsStates();
-
-  @override
-  List<Object> get props => [];
 }
 
 class ShipDetailsInitialState extends ShipDetailsStates {}

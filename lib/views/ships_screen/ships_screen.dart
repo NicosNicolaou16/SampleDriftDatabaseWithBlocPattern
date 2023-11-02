@@ -17,7 +17,6 @@ class ShipsScreen extends StatefulWidget {
 }
 
 class _ShipsScreenState extends State<ShipsScreen> {
-
   _init(BuildContext context) {
     context.read<ShipsBloc>().add(ShipsFetchData());
     context.read<ShipsBloc>().add(ShipsFromLocalDatabase());
@@ -46,7 +45,7 @@ class _ShipsScreenState extends State<ShipsScreen> {
               }
             },
             builder: (context, state) {
-             return _states(state, context);
+              return _states(state, context);
             },
           ),
         ),
@@ -56,7 +55,7 @@ class _ShipsScreenState extends State<ShipsScreen> {
 
   Widget _states(ShipsStates state, BuildContext context) {
     if (state is ShipsInitialState) {
-     _init(context);
+      _init(context);
     } else if (state is ShipsLoadedState) {
       return _mainView(state, context);
     } else if (state is ShipsLoadingState) {

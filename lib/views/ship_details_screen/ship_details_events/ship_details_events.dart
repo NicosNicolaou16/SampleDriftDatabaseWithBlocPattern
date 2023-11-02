@@ -1,9 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-abstract class ShipDetailsEvents extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+abstract class ShipDetailsEvents {}
 
 class ShipDetailsLocalQuery extends ShipDetailsEvents {
   final String shipId;
