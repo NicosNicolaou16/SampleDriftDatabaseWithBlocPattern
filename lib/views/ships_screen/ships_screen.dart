@@ -17,6 +17,12 @@ class ShipsScreen extends StatefulWidget {
 }
 
 class _ShipsScreenState extends State<ShipsScreen> {
+
+  _init(BuildContext context) {
+    context.read<ShipsBloc>().add(ShipsFetchData());
+    context.read<ShipsBloc>().add(ShipsFromLocalDatabase());
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,22 +46,25 @@ class _ShipsScreenState extends State<ShipsScreen> {
               }
             },
             builder: (context, state) {
-              if (state is ShipsInitialState) {
-                context.read<ShipsBloc>().add(ShipsFetchData());
-                context.read<ShipsBloc>().add(ShipsFromLocalDatabase());
-              } else if (state is ShipsLoadedState) {
-                return _mainView(state, context);
-              } else if (state is ShipsLoadingState) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return Container();
+             return _states(state, context);
             },
           ),
         ),
       ),
     );
+  }
+
+  Widget _states(ShipsStates state, BuildContext context) {
+    if (state is ShipsInitialState) {
+     _init(context);
+    } else if (state is ShipsLoadedState) {
+      return _mainView(state, context);
+    } else if (state is ShipsLoadingState) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    return Container();
   }
 
   Widget _mainView(ShipsLoadedState state, BuildContext context) {

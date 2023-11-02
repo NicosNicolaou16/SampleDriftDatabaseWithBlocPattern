@@ -12,9 +12,13 @@ class ShipDetailsBloc extends Bloc<ShipDetailsEvents, ShipDetailsStates> {
     ShipDetailsLocalQuery event,
     Emitter<ShipDetailsStates> emit,
   ) async {
-    emit(ShipDetailsLoadedState(
-        shipDetailsDataModelList:
-            await ShipDetailsDataModel.createShipDetailsDataModel(
-                event.shipId)));
+    if (event.shipId != "-1") {
+      emit(ShipDetailsLoadedState(
+          shipDetailsDataModelList:
+              await ShipDetailsDataModel.createShipDetailsDataModel(
+                  event.shipId)));
+    } else {
+      emit(const ShipDetailsErrorState());
+    }
   }
 }
