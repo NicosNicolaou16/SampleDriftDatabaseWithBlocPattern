@@ -9,7 +9,7 @@ Drift Database (SQL) <br />
 Flutter SDK version: 3.13.9 <br />
 Dart Version: 3.1.5 <br />
 
-# Similar Project
+# Similar with this Project
 https://github.com/NicosNicolaou16/SampleBlocPatternWithSingleState <br />
 
 # References/Tutorials Follow
