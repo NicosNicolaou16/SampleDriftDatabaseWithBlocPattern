@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sampledriftdatabasewithblocpattern/data/models/ships/ships_data_model.dart';
 import 'package:sampledriftdatabasewithblocpattern/utils/alerts_dialog/alerts_dialog.dart';
-import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_bloc.dart';
-import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_events/ships_events.dart';
-import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_states/ships_states.dart';
+import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_bloc/ships_bloc.dart';
+import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_bloc/ships_events.dart';
+import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_bloc/ships_states.dart';
 
 import '../ship_details_screen/ship_details_screen.dart';
 

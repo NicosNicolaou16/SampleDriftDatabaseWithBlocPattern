@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sampledriftdatabasewithblocpattern/data/database/entities/ships_entity.dart';
 import 'package:sampledriftdatabasewithblocpattern/data/models/ships/ships_data_model.dart';
 import 'package:sampledriftdatabasewithblocpattern/domain/repositories/ships_repository.dart';
-import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_events/ships_events.dart';
-import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_states/ships_states.dart';
+import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_bloc/ships_events.dart';
+import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_bloc/ships_states.dart';
 
 class ShipsBloc extends Bloc<ShipsEvents, ShipsStates> {
   final ShipsRepository _shipsRepository = ShipsRepository();
