@@ -140,9 +140,10 @@ class Ships extends Table with TableInfo<Ships, ShipsTable> {
         image
       ];
   @override
-  String get aliasedName => _alias ?? 'ships';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'ships';
+  String get actualTableName => $name;
+  static const String $name = 'ships';
   @override
   VerificationContext validateIntegrity(Insertable<ShipsTable> instance,
       {bool isInserting = false}) {
@@ -825,13 +826,14 @@ class Position extends Table with TableInfo<Position, PositionTable> {
       'shipId', aliasedName, true,
       type: DriftSqlType.string,
       requiredDuringInsert: false,
-      $customConstraints: '');
+      $customConstraints: 'REFERENCES ships(id)');
   @override
   List<GeneratedColumn> get $columns => [id, latitude, longitude, shipId];
   @override
-  String get aliasedName => _alias ?? 'position';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'position';
+  String get actualTableName => $name;
+  static const String $name = 'position';
   @override
   VerificationContext validateIntegrity(Insertable<PositionTable> instance,
       {bool isInserting = false}) {
@@ -1076,13 +1078,14 @@ class Missions extends Table with TableInfo<Missions, MissionsTable> {
       'shipId', aliasedName, true,
       type: DriftSqlType.string,
       requiredDuringInsert: false,
-      $customConstraints: '');
+      $customConstraints: 'REFERENCES ships(id)');
   @override
   List<GeneratedColumn> get $columns => [id, name, flight, shipId];
   @override
-  String get aliasedName => _alias ?? 'missions';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'missions';
+  String get actualTableName => $name;
+  static const String $name = 'missions';
   @override
   VerificationContext validateIntegrity(Insertable<MissionsTable> instance,
       {bool isInserting = false}) {

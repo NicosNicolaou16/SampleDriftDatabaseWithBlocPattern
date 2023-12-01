@@ -25,6 +25,10 @@ class PositionEntity {
     );
   }
 
+  static Future<void> deleteAllPosition(AppDb appDb) async {
+    await appDb.delete(appDb.position).go();
+  }
+
   static Future<PositionEntity> savePosition(
       PositionEntity positionEntity, String shipId) async {
     AppDb appDb = AppDb.instance;
@@ -34,7 +38,7 @@ class PositionEntity {
     return positionEntity;
   }
 
-  static Future<PositionEntity?> getShipById(String shipId) async {
+  static Future<PositionEntity?> getPositionById(String shipId) async {
     AppDb appDb = AppDb.instance;
     PositionTable? positionTable = await (appDb.select(appDb.position)
           ..where((tbl) => tbl.shipId.equals(shipId)))

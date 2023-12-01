@@ -22,12 +22,12 @@ CREATE TABLE position (
     id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
     latitude REAL NULL,
     longitude REAL NULL,
-    shipId TEXT NULL
+    shipId TEXT REFERENCES ships(id)
 ) As PositionTable;
 
 CREATE TABLE missions (
     id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
     name TEXT NULL,
     flight INT NULL,
-    shipId TEXT NULL
+    shipId TEXT REFERENCES ships(id)
 ) As MissionsTable;

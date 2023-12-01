@@ -37,6 +37,10 @@ class MissionsEntity {
     );
   }
 
+  static Future<void> deleteAllMissions(AppDb appDb) async {
+    await appDb.delete(appDb.missions).go();
+  }
+
   static Future<List<MissionsEntity>> saveMissions(
       List<MissionsEntity> missionsEntityList, String shipId) async {
     AppDb appDb = AppDb.instance;
@@ -49,7 +53,7 @@ class MissionsEntity {
     return missionsEntityList;
   }
 
-  static Future<List<MissionsEntity>> getAllMissionByShipId(
+  static Future<List<MissionsEntity>> getAllMissionsByShipId(
       String shipId) async {
     AppDb appDb = AppDb.instance;
     List<MissionsTable>? missionsTableList = await (appDb.select(appDb.missions)
