@@ -13,8 +13,8 @@ class MissionsEntity {
   });
 
   MissionsEntity.fromJson(Map<String, dynamic> json) {
-    name = json["ship"];
-    flight = json["ship_name"];
+    name = json["name"];
+    flight = json["flight"];
   }
 
   static List<MissionsEntity> fromJsonList(List json) {
