@@ -57,10 +57,18 @@ class _ShipsScreenState extends State<ShipsScreen> {
     if (state is ShipsInitialState) {
       _init(context);
     } else if (state is ShipsLoadedState) {
-      return _mainView(state, context);
+      return Stack(
+        children: [
+          _mainView(state, context),
+        ],
+      );
     } else if (state is ShipsLoadingState) {
-      return const Center(
-        child: CircularProgressIndicator(),
+      return const Stack(
+        children: [
+          Center(
+            child: CircularProgressIndicator(),
+          ),
+        ],
       );
     }
     return Container();
