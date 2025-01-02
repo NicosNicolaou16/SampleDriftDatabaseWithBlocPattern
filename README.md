@@ -21,8 +21,8 @@ responsible for loading the images and supports offline functionality.  <br />
 
 # Versioning
 
-Flutter SDK version: 3.24.5 <br />
-Dart Version: 3.5.4 <br />
+Flutter SDK version: 3.27.1 <br />
+Dart Version: 3.6.0 <br />
 
 # Feeds/Urls/End Point (parsing some data from response)
 
