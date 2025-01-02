@@ -20,6 +20,9 @@ responsible for loading the images and supports offline functionality.  <br />
 
 https://github.com/NicosNicolaou16/SampleBlocPatternWithSingleState <br />
 
+> [!IMPORTANT]  
+> Similar project with :point_right: [SampleBlocPatternWithSingleState](https://github.com/NicosNicolaou16/SampleBlocPatternWithSingleState) :point_left: <br />
+
 # Versioning
 
 Flutter SDK version: 3.24.5 <br />
