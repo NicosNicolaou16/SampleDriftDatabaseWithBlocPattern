@@ -16,12 +16,14 @@ functionality. ([Drift Database Documentation](https://pub.dev/packages/drift)) 
 [Cached Network Image](https://pub.dev/packages/cached_network_image) is a package that it is
 responsible for loading the images and supports offline functionality.  <br />
 
-Flutter SDK version: 3.24.5 <br />
-Dart Version: 3.5.4 <br />
-
 # Similar with this Project
 
 https://github.com/NicosNicolaou16/SampleBlocPatternWithSingleState <br />
+
+# Versioning
+
+Flutter SDK version: 3.24.5 <br />
+Dart Version: 3.5.4 <br />
 
 # Feeds/Urls/End Point (parsing some data from response)
 
