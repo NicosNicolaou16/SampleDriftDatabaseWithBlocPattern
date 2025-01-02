@@ -1,7 +1,7 @@
 # Sample Drift Database With Bloc Pattern
 
-This is a sample project that uses Bloc Architecture Pattern with Dio Network Manager and Drift
-Database.
+This project is an application that utilizes the BLoC architecture pattern, Dio
+for network management, and Drift for local database storage.
 
 # This Project contains:
 
