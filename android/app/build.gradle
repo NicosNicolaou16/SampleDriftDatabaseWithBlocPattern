@@ -24,9 +24,9 @@ if (flutterVersionName == null) {
 
 android {
     namespace 'com.sampledriftdatabasewithblocpattern'
-    buildToolsVersion '35.0.0'
+    buildToolsVersion '35.0.1'
     compileSdk 35
-    ndkVersion '27.2.12479018'
+    ndkVersion '28.1.13356709'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -57,6 +57,12 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            version = "4.0.2"
         }
     }
 }
