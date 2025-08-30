@@ -4,7 +4,7 @@ import 'package:sampledriftdatabasewithblocpattern/views/ship_details_screen/shi
 import 'package:sampledriftdatabasewithblocpattern/views/ship_details_screen/ship_details_bloc/ship_details_states.dart';
 
 class ShipDetailsBloc extends Bloc<ShipDetailsEvents, ShipDetailsStates> {
-  ShipDetailsBloc(ShipDetailsStates shipStates) : super(shipStates) {
+  ShipDetailsBloc(super.shipStates) {
     on<ShipDetailsLocalQuery>(_onShipsLocalSearch);
   }
 
