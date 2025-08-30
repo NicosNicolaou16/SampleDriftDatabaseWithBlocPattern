@@ -9,7 +9,7 @@ import 'package:sampledriftdatabasewithblocpattern/views/ships_screen/ships_bloc
 class ShipsBloc extends Bloc<ShipsEvents, ShipsStates> {
   final ShipsRepository _shipsRepository = ShipsRepository();
 
-  ShipsBloc(ShipsStates shipsStates) : super(shipsStates) {
+  ShipsBloc(super.shipsStates) {
     on<ShipsFetchData>(_onShipsFetched);
     on<ShipsFromLocalDatabase>(_shipsFromLocalDatabase);
     on<ShipsLocalSearch>(_onShipsLocalSearch);

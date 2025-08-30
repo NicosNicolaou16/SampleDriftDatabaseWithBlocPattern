@@ -14,9 +14,9 @@ class ShipDetailsDataModel {
 
     if (shipsEntity != null) {
       shipDetailsDataModelList.add(ShipDetailsDataModel(
-          shipsEntity, ShipDetailsViewType.PHOTO_VIEW_TYPE));
+          shipsEntity, ShipDetailsViewType.photoViewType));
       shipDetailsDataModelList.add(ShipDetailsDataModel(
-          shipsEntity, ShipDetailsViewType.INFO_VIEW_TYPE));
+          shipsEntity, ShipDetailsViewType.infoViewType));
     }
 
     return shipDetailsDataModelList;
@@ -24,6 +24,6 @@ class ShipDetailsDataModel {
 }
 
 enum ShipDetailsViewType {
-  PHOTO_VIEW_TYPE,
-  INFO_VIEW_TYPE,
+  photoViewType,
+  infoViewType,
 }

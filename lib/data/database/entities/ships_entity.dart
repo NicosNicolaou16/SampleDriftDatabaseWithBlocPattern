@@ -1,5 +1,4 @@
 import 'package:drift/drift.dart';
-import 'package:flutter/foundation.dart';
 import 'package:sampledriftdatabasewithblocpattern/data/database/database.dart';
 import 'package:sampledriftdatabasewithblocpattern/data/database/entities/missions_entity.dart';
 import 'package:sampledriftdatabasewithblocpattern/data/database/entities/position_entity.dart';

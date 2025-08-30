@@ -10,14 +10,14 @@ import 'package:sampledriftdatabasewithblocpattern/views/ship_details_screen/shi
 class ShipDetailsScreen extends StatefulWidget {
   final String shipId;
 
-  const ShipDetailsScreen({Key? key, required this.shipId}) : super(key: key);
+  const ShipDetailsScreen({super.key, required this.shipId});
 
   @override
   State<ShipDetailsScreen> createState() => _ShipDetailsScreenState();
 }
 
 class _ShipDetailsScreenState extends State<ShipDetailsScreen> {
-  _init(BuildContext context) {
+  void _init(BuildContext context) {
     context.read<ShipDetailsBloc>().add(ShipDetailsLocalQuery(widget.shipId));
   }
 
@@ -80,7 +80,7 @@ class _ShipDetailsScreenState extends State<ShipDetailsScreen> {
           ShipDetailsDataModel shipDetailsDataModel =
               state.shipDetailsDataModelList[index];
           if (shipDetailsDataModel.shipDetailsViewType ==
-              ShipDetailsViewType.PHOTO_VIEW_TYPE) {
+              ShipDetailsViewType.photoViewType) {
             return _imageView(shipDetailsDataModel);
           } else {
             return _infoView(shipDetailsDataModel);
