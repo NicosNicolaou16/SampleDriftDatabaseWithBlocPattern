@@ -23,30 +23,28 @@ class _ShipDetailsScreenState extends State<ShipDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          elevation: 0,
-          title: const Text(
-            "Details Screen",
-            style: TextStyle(
-              fontSize: 21,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        title: const Text(
+          "Details Screen",
+          style: TextStyle(
+            fontSize: 21,
           ),
         ),
-        body: BlocProvider(
-          create: (_) => ShipDetailsBloc(ShipDetailsInitialState()),
-          child: BlocConsumer<ShipDetailsBloc, ShipDetailsStates>(
-            listener: (context, state) {
-              if (state is ShipDetailsErrorState) {
-                AlertsDialog.showAlertDialog(state.error ?? "", context);
-              }
-            },
-            builder: (context, state) {
-              return _states(state, context);
-            },
-          ),
+      ),
+      body: BlocProvider(
+        create: (_) => ShipDetailsBloc(ShipDetailsInitialState()),
+        child: BlocConsumer<ShipDetailsBloc, ShipDetailsStates>(
+          listener: (context, state) {
+            if (state is ShipDetailsErrorState) {
+              AlertsDialog.showAlertDialog(state.error ?? "", context);
+            }
+          },
+          builder: (context, state) {
+            return _states(state, context);
+          },
         ),
       ),
     );

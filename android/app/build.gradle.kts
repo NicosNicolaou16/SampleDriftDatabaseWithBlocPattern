@@ -10,7 +10,7 @@ android {
     namespace = "com.sampledriftdatabasewithblocpattern"
     buildToolsVersion = "36.0.0"
     compileSdk = 36
-    ndkVersion = "28.2.13676358"
+    ndkVersion = "29.0.14206865"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
@@ -50,7 +50,7 @@ android {
 
     externalNativeBuild {
         cmake {
-            version = "4.1.0"
+            version = "4.1.2"
         }
     }
 }

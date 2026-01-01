@@ -24,31 +24,29 @@ class _ShipsScreenState extends State<ShipsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          forceMaterialTransparency: true,
-          centerTitle: true,
-          elevation: 0,
-          title: const Text(
-            "Ships List",
-            style: TextStyle(
-              fontSize: 21,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+        centerTitle: true,
+        elevation: 0,
+        title: const Text(
+          "Ships List",
+          style: TextStyle(
+            fontSize: 21,
           ),
         ),
-        body: BlocProvider(
-          create: (_) => ShipsBloc(ShipsInitialState()),
-          child: BlocConsumer<ShipsBloc, ShipsStates>(
-            listener: (context, state) {
-              if (state is ShipsErrorState) {
-                AlertsDialog.showAlertDialog(state.error ?? "", context);
-              }
-            },
-            builder: (context, state) {
-              return _states(state, context);
-            },
-          ),
+      ),
+      body: BlocProvider(
+        create: (_) => ShipsBloc(ShipsInitialState()),
+        child: BlocConsumer<ShipsBloc, ShipsStates>(
+          listener: (context, state) {
+            if (state is ShipsErrorState) {
+              AlertsDialog.showAlertDialog(state.error ?? "", context);
+            }
+          },
+          builder: (context, state) {
+            return _states(state, context);
+          },
         ),
       ),
     );
