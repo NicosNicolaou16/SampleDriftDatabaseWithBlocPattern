@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_bloc: ^9.1.1
   dio: ^5.9.2
-  drift: ^2.30.0
+  drift: ^2.32.0
   sqlite3_flutter_libs: ^0.5.41
   path_provider: ^2.1.5
   path: ^1.8.3
@@ -46,7 +46,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  drift_dev: ^2.30.0
+  drift_dev: ^2.32.0
   build_runner: ^2.10.4
 
   # The "flutter_lints" package below contains a set of recommended lints to
