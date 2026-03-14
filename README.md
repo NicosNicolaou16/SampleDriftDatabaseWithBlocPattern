@@ -26,8 +26,8 @@ This project is an application that utilizes the **BLoC architecture pattern**, 
 
 ## 🔧 Versioning
 
-- **Flutter SDK:** **3.38.5**
-- **Dart Version:** **3.10.4**
+- **Flutter SDK:** **3.41.4**
+- **Dart Version:** **3.11.1**
 
 ## 🌐 API & Endpoints
 
