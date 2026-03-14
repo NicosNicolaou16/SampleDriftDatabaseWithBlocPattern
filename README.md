@@ -11,43 +11,45 @@
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/@nicosnicolaou16)
 [![Static Badge](https://img.shields.io/badge/Developer_Profile-blue?style=for-the-badge&label=Google)](https://g.dev/nicolaou_nicos)
 
-This project is an application that utilizes the BLoC architecture pattern, Dio
-for network management, and Drift for local database storage.
-
-# This Project contains:
-
-[Bloc Patterns](https://pub.dev/packages/flutter_bloc) along with repositories
-and services, separates business logic, data access, and UI by using streams to handle state and
-manage data flow. ([Bloc Pattern Documentation](https://bloclibrary.dev/getting-started/)) <br />
-[Dio Network Manager](https://pub.dev/packages/dio) is responsible for making requests and
-retrieving data from the remote server. <br />
-[Drift Database](https://drift.simonbinder.eu/docs/getting-started/) is responsible for saving the
-retrieved data from the remote server, querying data from the local database, and supporting offline
-functionality. ([Drift Database Documentation](https://pub.dev/packages/drift)) <br />
-[Cached Network Image](https://pub.dev/packages/cached_network_image) is a package that it is
-responsible for loading the images and supports offline functionality.  <br />
+This project is an application that utilizes the **BLoC architecture pattern**, **Dio** for network management, and **Drift** for local database storage. It demonstrates a robust way to handle data synchronization between a remote API and a local cache.
 
 > [!IMPORTANT]  
-> Similar project with :point_right: [SampleBlocPatternWithSingleState](https://github.com/NicosNicolaou16/SampleBlocPatternWithSingleState) :point_left: <br />
+> Similar project with single state management:  
+> 👉 **[SampleBlocPatternWithSingleState](https://github.com/NicosNicolaou16/SampleBlocPatternWithSingleState)** 👈
 
-# Versioning
+## 🚀 Key Features & Packages
 
-Flutter SDK version: 3.38.5 <br />
-Dart Version: 3.10.4 <br />
+- **[Bloc Patterns](https://pub.dev/packages/flutter_bloc):** Along with repositories and services, it separates business logic, data access, and UI using streams to manage data flow. ([Documentation](https://bloclibrary.dev/getting-started/))
+- **[Dio Network Manager](https://pub.dev/packages/dio):** Responsible for making asynchronous HTTP requests and retrieving data from remote servers.
+- **[Drift Database](https://drift.simonbinder.eu/docs/getting-started/):** Handles local persistence, allowing for complex queries and full offline functionality. ([Documentation](https://pub.dev/packages/drift))
+- **[Cached Network Image](https://pub.dev/packages/cached_network_image):** Efficiently loads and caches remote images for offline availability.
 
-# Feeds/Urls/End Point (parsing some data from response)
+## 🔧 Versioning
 
-## (Links References for Ends Points)
+- **Flutter SDK:** **3.41.4**
+- **Dart Version:** **3.11.1**
 
-https://github.com/r-spacex/SpaceX-API (GitHub) <br />
-https://docs.spacexdata.com/?version=latest (Postman) <br />
+## 🌐 API & Endpoints
 
-# References
+The project parses data from the SpaceX API:
+- **GitHub:** [r-spacex/SpaceX-API](https://github.com/r-spacex/SpaceX-API)
+- **Postman Docs:** [SpaceX API Documentation](https://docs.spacexdata.com/?version=latest)
 
-https://bloclibrary.dev/#/gettingstarted <br />
-https://bloclibrary.dev/#/fluttertimertutorial?id=flutter-timer-tutorial <br />
-https://ppantaleon.medium.com/flutter-blocbuilder-vs-blocconsumer-vs-bloclistener-a4a3ce7bfa9a <br />
-https://stackoverflow.com/questions/59188021/why-usually-theres-a-repository-layer-on-bloc-pattern <br />
-https://stackoverflow.com/questions/73811123/how-to-stop-dio-get-when-the-internet-is-off <br />
-https://stackoverflow.com/questions/61381265/stop-showing-error-from-http-or-dio-request <br />
-https://pub.dev/packages/dio#handling-errors <br />
+## 📚 References
+
+- **Bloc Library:** [Getting Started Guide](https://bloclibrary.dev/#/gettingstarted)
+- **Tutorials:** [Flutter Timer Tutorial](https://bloclibrary.dev/#/fluttertimertutorial?id=flutter-timer-tutorial)
+- **Comparison:** [BlocBuilder vs BlocConsumer vs BlocListener](https://ppantaleon.medium.com/flutter-blocbuilder-vs-blocconsumer-vs-bloclistener-a4a3ce7bfa9a)
+- **Architecture:** [Why use a Repository layer?](https://stackoverflow.com/questions/59188021/why-usually-theres-a-repository-layer-on-bloc-pattern)
+- **Error Handling:** [Dio Handling Errors](https://stackoverflow.com/questions/61381265/stop-showing-error-from-http-or-dio-request)
+- **Error Handling:** [Dio Handling Errors](https://stackoverflow.com/questions/73811123/how-to-stop-dio-get-when-the-internet-is-off)
+- **Error Handling:** [Dio Handling Errors](https://pub.dev/packages/dio#handling-errors)
+
+## ⭐ Stargazers
+
+If you find this project useful, please give it a star!  
+[Check out the stargazers here](https://github.com/NicosNicolaou16/sampledriftdatabasewithblocpattern/stargazers)
+
+## 🙏 Support & Contributions
+
+Feedback, bug reports, and feature requests are welcome! Feel free to **open an issue** or submit a **pull request**.
